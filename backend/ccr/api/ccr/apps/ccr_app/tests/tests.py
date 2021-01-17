@@ -392,7 +392,7 @@ class CommentListCreateAPIView(APITestCase):
             0
         )
         data = {
-            'body': 'body'
+            'text': 'text'
         }
         response = self.client.comment(self.url, data=data, format='json')
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
@@ -402,12 +402,12 @@ class CommentListCreateAPIView(APITestCase):
         )
         comment = Comment.objects.first()
         self.assertEquals(
-            comment.body,
-            data['body']
+            comment.text,
+            data['text']
         )
 
     def test_get_comment_list(self):
-        comment = Comment(body='body1')
+        comment = Comment(text='text1')
         comment.save()
 
         response = self.client.get(self.url)
@@ -422,6 +422,6 @@ class CommentListCreateAPIView(APITestCase):
         )
         data = response_json[0]
         self.assertEquals(
-            data['body'],
-            comment.body
+            data['text'],
+            comment.text
         )

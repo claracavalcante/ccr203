@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - "ccr-pgdata:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB=ccr
+      - POSTGRES_USER=ccr
+      - POSTGRES_PASSWORD=ccr
+    ports:
+      - "5432:5432"
+  # redis:
+  #   image: redis:latest
+  # elastic:
+  #   image: elasticsearch:7.2.0
+  #   volumes:
+  #     - "ccr-elasticdata:/usr/share/elasticsearch/data"
+  #   environment:
+  #     - discovery.type=single-node
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9200"
+
+volumes:
+  ccr-pgdata:
+  ccr-elasticdata:

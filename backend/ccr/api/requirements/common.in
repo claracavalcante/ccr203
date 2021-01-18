@@ -3,3 +3,4 @@ psycopg2-binary
 django-environ
 gunicorn
 djangorestframework
+Pillow==6.1.0

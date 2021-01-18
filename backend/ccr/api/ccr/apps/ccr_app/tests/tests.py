@@ -136,7 +136,7 @@ class ChallengeDetailsAPIViewTest(APITestCase):
         )
 
 
-# --- Team Tests (teams) -----------------------------------------------------------------------
+# --- Team Tests (teams) --------------------------------------------------
 
 
 class TeamListCreateAPIView(APITestCase):
@@ -185,7 +185,7 @@ class TeamListCreateAPIView(APITestCase):
             team.name
         )
         self.assertEquals(
-            data['challenges'][0]['title'],
+            data['challenge']['title'],
             challenge.title
         )
 
@@ -248,8 +248,7 @@ class TeamDetailsAPIViewTest(APITestCase):
         )
 
 
-# --- Post Tests (posts) -----------------------------------------------------------------------
-
+# --- Post Tests (posts) ----------------------------------------------
 
 class PostListCreateAPIView(APITestCase):
     def setUp(self) -> None:
@@ -376,52 +375,4 @@ class PostDetailsAPIViewTest(APITestCase):
         self.assertEquals(
             Post.objects.count(),
             0
-        )
-
-
-# --- Comment Tests (comments) -----------------------------------------------------------------------
-
-
-class CommentListCreateAPIView(APITestCase):
-    def setUp(self) -> None:
-        self.url = reverse('api-comment-list', kwargs={'version': 'v1'})
-
-    def test_create_comment(self):
-        self.assertEquals(
-            Comment.objects.count(),
-            0
-        )
-        data = {
-            'text': 'text'
-        }
-        response = self.client.comment(self.url, data=data, format='json')
-        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
-        self.assertEquals(
-            Comment.objects.count(),
-            1
-        )
-        comment = Comment.objects.first()
-        self.assertEquals(
-            comment.text,
-            data['text']
-        )
-
-    def test_get_comment_list(self):
-        comment = Comment(text='text1')
-        comment.save()
-
-        response = self.client.get(self.url)
-        response_json = response.json()
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_200_OK
-        )
-        self.assertEquals(
-            len(response_json),
-            1
-        )
-        data = response_json[0]
-        self.assertEquals(
-            data['text'],
-            comment.text
         )

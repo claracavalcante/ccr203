@@ -1,13 +1,13 @@
 from rest_framework import serializers
 
-from django_blog.apps.account.models import User
+from ccr.apps.account.models import User
 from ccr.apps.ccr_app.models import Area, Challenge, Team, Tag, Post, Comment, Meeting
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('pk', 'email', 'first_name', 'last_name',)
+        fields = ('pk', 'email', 'first_name', 'last_name', 'is_staff',)
 
 
 class AreaSerializer(serializers.ModelSerializer):
